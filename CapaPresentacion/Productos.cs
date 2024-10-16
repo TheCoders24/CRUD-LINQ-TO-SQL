@@ -15,12 +15,12 @@ namespace CapaPresentacion
     public partial class Productos : Form
     {
 
-        private ProductoService productoService;
+        private NegocioService negocioService;
         public Productos()
         {
             InitializeComponent();
-           
-            productoService = new ProductoService();
+
+            negocioService = new NegocioService();
         }
 
         private void Productos_Load(object sender, EventArgs e)
@@ -30,8 +30,15 @@ namespace CapaPresentacion
 
         public void GetProductos()
         {
-           
+            dataGridViewProductos.DataSource = negocioService.ObtenerProductosConCategorias();
+            //dataGridView1.DataSource = servicio.ObtenerClientesDeLondonBerlin();
+            //  dataGridView1.DataSource = servicio.ObtenerOrdenesConFreightMayorA100YEnviadas();
+            //  dataGridView1.DataSource = servicio.ObtenerProductosConStockYPrecioMayorA20();
+            // dataGridView1.DataSource = servicio.ObtenerOrdenesConClienteYEmpleado();
+            //dataGridView1.DataSource = servicio.ObtenerProductosDeProveedoresUSAyCanada();
+            //dataGridView1.DataSource = servicio.ObtenerClientesSinOrdenes();
         }
+
 
         private void dataGridViewProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
