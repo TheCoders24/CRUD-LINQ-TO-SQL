@@ -8,10 +8,10 @@ using System.Configuration;
 
 namespace CapaDatos
 {
-    public class CProductos
+    public class RepositorioDatos
     {
         private NorthwindDataContextDataContext db;
-        public CProductos()
+        public RepositorioDatos()
         {
 
             // Cargamos la cadena de conexión desde el App.config
