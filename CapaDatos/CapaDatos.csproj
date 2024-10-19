@@ -150,6 +150,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conexiones.cs" />
     <Compile Include="RepositorioDatos.cs" />
     <Compile Include="NorthwindDataContext.designer.cs">
       <AutoGen>True</AutoGen>

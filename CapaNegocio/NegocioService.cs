@@ -3,66 +3,113 @@ using System.Collections.Generic;
 
 namespace CapaNegocio
 {
-    public  class NegocioService
+    public class NegocioService
     {
         private RepositorioDatos repositorio;
-        public NegocioService() 
-        { 
-            repositorio = new RepositorioDatos();   
-        }
-        public List<dynamic> ObtenerProductosConCategorias()
+
+        public NegocioService()
         {
-            return repositorio.obtenerproductoscategoria();
+            repositorio = new RepositorioDatos();
         }
 
-        public List<Customers> ObtenerClientesDeLondon()
+        // Obtener productos con sus categorías
+        public List<ProductoCategoria> ObtenerProductosConCategorias()
         {
-            return repositorio.obtenerclientesdelondonberlin();
+            return repositorio.ObtenerProductosCategoria();
         }
 
+        // Obtener clientes de London o Berlin
+        public List<Customers> ObtenerClientesDeLondonBerlin()
+        {
+            return repositorio.ObtenerClientesDeLondonBerlin();
+        }
+
+        // Obtener órdenes con Freight mayor a 100 y enviadas
         public List<Orders> ObtenerOrdenesConFreightMayorA100YEnviadas()
         {
             return repositorio.ObtenerOrdenesConFreightMayorA100YEnviadas();
         }
 
+        // Obtener productos con stock y precio mayor a 20
         public List<Products> ObtenerProductosConStockYPrecioMayorA20()
         {
             return repositorio.ObtenerProductosConStockYPrecioMayorA20();
         }
 
-        public List<dynamic> ObtenerOrdenesConClienteYEmpleado()
+        // Obtener órdenes con cliente y empleado
+        public List<OrdenClienteEmpleado> ObtenerOrdenesConClienteYEmpleado()
         {
             return repositorio.ObtenerOrdenesConClienteYEmpleado();
         }
 
+        // Obtener productos suministrados por proveedores de USA y Canadá
         public List<Products> ObtenerProductosDeProveedoresUSAyCanada()
         {
             return repositorio.ObtenerProductosDeProveedoresUSAyCanada();
         }
 
+        // Obtener clientes sin órdenes
         public List<Customers> ObtenerClientesSinOrdenes()
         {
             return repositorio.ObtenerClientesSinOrdenes();
         }
 
+        // Agregar una nueva orden con sus detalles
         public void AgregarOrden(Orders order, List<Order_Details> detalles)
         {
             repositorio.AgregarOrden(order, detalles);
         }
 
+        // Modificar una orden existente
         public void ModificarOrden(int orderId, Orders ordenModificada)
         {
             repositorio.ModificarOrden(orderId, ordenModificada);
         }
 
+        // Obtener una orden por su ID
         public Orders ObtenerOrdenPorId(int orderId)
         {
             return repositorio.ObtenerOrdenPorId(orderId);
         }
 
+        // Obtener detalles de una orden por su ID
         public List<Order_Details> ObtenerDetallesPorIdOrden(int orderId)
         {
             return repositorio.ObtenerDetallesPorIdOrden(orderId);
         }
+        public void CrearPedido(Orders newOrder, List<Order_Details> orderDetails)
+        {
+            repositorio.InsertOrder(newOrder);
+            foreach (var detail in orderDetails)
+            {
+                detail.OrderID = newOrder.OrderID; // Asegurarse de que el OrderID esté configurado
+                repositorio.InsertOrderDetail(detail);
+            }
+        }
+        public void ModificarPedido(Orders updatedOrder)
+        {
+            repositorio.UpdateOrder(updatedOrder);
+        }
+        public void ModificarDetallePedido(Order_Details updatedDetail)
+        {
+            repositorio.UpdateOrderDetail(updatedDetail);
+        }
+        public Orders ConsultarPedido(int orderId)
+        {
+            return repositorio.GetOrderById(orderId);
+        }
+        public List<Orders> ConsultarTodosLosPedidos()
+        {
+            return repositorio.GetAllOrders();
+        }
+        public List<Order_Details> ConsultarDetallesPedido(int orderId)
+        {
+            return repositorio.GetOrderDetailsByOrderId(orderId);
+        }
+        public void InsertarDetallePedido(Order_Details detail)
+        {
+            repositorio.InsertOrderDetail(detail);
+        }
+
     }
 }

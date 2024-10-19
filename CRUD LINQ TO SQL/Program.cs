@@ -19,8 +19,8 @@ namespace CRUD_LINQ_TO_SQL
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            CapaPresentacion.Menu miMenu = new CapaPresentacion.Menu();
-            Application.Run(miMenu);
+           
+            Application.Run(new CapaPresentacion.Menu());
         }
     }
 }

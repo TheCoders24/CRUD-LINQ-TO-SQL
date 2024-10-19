@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,45 +9,92 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
+    public class ProductoCategoria
+    {
+        public string ProductName { get; set; }
+        public string CategoryName { get; set; }
+    }
+
+    public class OrdenClienteEmpleado
+    {
+        public int OrderID { get; set; }
+        public string CustomerName { get; set; }
+        public string EmployeeName { get; set; }
+    }
+
     public class RepositorioDatos
     {
         private NorthwindDataContextDataContext db;
+
         public RepositorioDatos()
         {
+            try
+            {
+                // Obtener la cadena de conexión del archivo App.config
+                string connectionString = Conexiones.CN;
 
-            // Cargamos la cadena de conexión desde el App.config
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString;
-            db = new NorthwindDataContextDataContext(connectionString);
+                // Verificar si la cadena de conexión es nula
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    throw new InvalidOperationException("La cadena de conexión no está configurada en App.config.");
+                }
+
+                // Probar la conexión antes de crear el contexto de datos
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open(); // Intentar abrir la conexión
+                    Console.WriteLine("Conexión exitosa.");
+                }
+
+                // Crear el contexto de datos
+                db = new NorthwindDataContextDataContext(connectionString);
+
+                // Verificar si el contexto de datos se creó correctamente
+                if (db == null)
+                {
+                    throw new InvalidOperationException("No se pudo crear el contexto de datos.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new InvalidOperationException($"Sucedió un error con SQL: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Sucedió un error: {ex.Message}", ex);
+            }
 
         }
 
-        // obtener los productos y sus categorias
-        public List<dynamic> obtenerproductoscategoria()
+
+        // Obtener los productos y sus categorías
+        public List<ProductoCategoria> ObtenerProductosCategoria()
         {
             var query = from p in db.Products
                         join c in db.Categories on p.CategoryID equals c.CategoryID
-                        select new
+                        select new ProductoCategoria
                         {
                             ProductName = p.ProductName,
                             CategoryName = c.CategoryName
                         };
 
-            return query.ToList<dynamic>();
+            return query.ToList();
         }
 
-        // obtener clientes de london o berlin
-        public List<Customers> obtenerclientesdelondonberlin()
+        // Obtener clientes de London o Berlin
+        public List<Customers> ObtenerClientesDeLondonBerlin()
         {
             var query = (from c in db.Customers
                          where c.City == "London"
                          select c)
-                      .Union(from c in db.Customers
-                             where c.City == "Berlin"
-                             select c);
+                        .Union(from c in db.Customers
+                               where c.City == "Berlin"
+                               select c);
 
             return query.ToList();
         }
-        // 3. Obtener órdenes con Freight superior a 100 y enviadas
+
+        // Obtener órdenes con Freight superior a 100 y enviadas
         public List<Orders> ObtenerOrdenesConFreightMayorA100YEnviadas()
         {
             var query = from o in db.Orders
@@ -56,7 +104,7 @@ namespace CapaDatos
             return query.ToList();
         }
 
-        // 4. Obtener productos con stock y precio mayor a 20
+        // Obtener productos con stock y precio mayor a 20
         public List<Products> ObtenerProductosConStockYPrecioMayorA20()
         {
             var query = from p in db.Products
@@ -65,48 +113,44 @@ namespace CapaDatos
 
             return query.ToList();
         }
-        // 5. Obtener órdenes con nombre de cliente y empleado
-        public List<dynamic> ObtenerOrdenesConClienteYEmpleado()
+
+        // Obtener órdenes con nombre de cliente y empleado
+        public List<OrdenClienteEmpleado> ObtenerOrdenesConClienteYEmpleado()
         {
             var query = from o in db.Orders
                         join c in db.Customers on o.CustomerID equals c.CustomerID
                         join e in db.Employees on o.EmployeeID equals e.EmployeeID
-                        select new
+                        select new OrdenClienteEmpleado
                         {
                             OrderID = o.OrderID,
                             CustomerName = c.CompanyName,
                             EmployeeName = e.FirstName + " " + e.LastName
                         };
 
-            return query.ToList<dynamic>();
+            return query.ToList();
         }
-        // 6. Obtener productos suministrados por proveedores de USA y Canadá
+
+        // Obtener productos suministrados por proveedores de USA y Canadá
         public List<Products> ObtenerProductosDeProveedoresUSAyCanada()
         {
-            var usSuppliers = from p in db.Products
-                              join s in db.Suppliers on p.SupplierID equals s.SupplierID
-                              where s.Country == "USA"
-                              select p;
+            var query = (from p in db.Products
+                         join s in db.Suppliers on p.SupplierID equals s.SupplierID
+                         where s.Country == "USA" || s.Country == "Canada"
+                         select p).Distinct();
 
-            var canadaSuppliers = from p in db.Products
-                                  join s in db.Suppliers on p.SupplierID equals s.SupplierID
-                                  where s.Country == "Canada"
-                                  select p;
-
-            return usSuppliers.Intersect(canadaSuppliers).ToList();
+            return query.ToList();
         }
-        // 7. Obtener clientes sin órdenes
+
+        // Obtener clientes sin órdenes
         public List<Customers> ObtenerClientesSinOrdenes()
         {
-            var customersWithOrders = from o in db.Orders
-                                      select o.CustomerID;
+            var query = from c in db.Customers
+                        where !(from o in db.Orders select o.CustomerID).Contains(c.CustomerID)
+                        select c;
 
-            var customersWithoutOrders = from c in db.Customers
-                                         where !customersWithOrders.Contains(c.CustomerID)
-                                         select c;
-
-            return customersWithoutOrders.ToList();
+            return query.ToList();
         }
+
         // Métodos CRUD para Orders y Order Details
         public void AgregarOrden(Orders order, List<Order_Details> detalles)
         {
@@ -114,6 +158,45 @@ namespace CapaDatos
             db.Order_Details.InsertAllOnSubmit(detalles);
             db.SubmitChanges();
         }
+        public void InsertOrderDetail(Order_Details orderDetail)
+        {
+            db.Order_Details.InsertOnSubmit(orderDetail);
+            db.SubmitChanges();
+        }
+        public void UpdateOrder(Orders updatedOrder)
+        {
+            var existingOrder = db.Orders.SingleOrDefault(o => o.OrderID == updatedOrder.OrderID);
+            if (existingOrder != null)
+            {
+                existingOrder.CustomerID = updatedOrder.CustomerID;
+                existingOrder.EmployeeID = updatedOrder.EmployeeID;
+                existingOrder.OrderDate = updatedOrder.OrderDate;
+                existingOrder.RequiredDate = updatedOrder.RequiredDate;
+                existingOrder.ShippedDate = updatedOrder.ShippedDate;
+                existingOrder.ShipVia = updatedOrder.ShipVia;
+                existingOrder.Freight = updatedOrder.Freight;
+                existingOrder.ShipName = updatedOrder.ShipName;
+                existingOrder.ShipAddress = updatedOrder.ShipAddress;
+                existingOrder.ShipCity = updatedOrder.ShipCity;
+                existingOrder.ShipPostalCode = updatedOrder.ShipPostalCode;
+                existingOrder.ShipCountry = updatedOrder.ShipCountry;
+
+                db.SubmitChanges();
+            }
+        }
+        public void UpdateOrderDetail(Order_Details updatedDetail)
+        {
+            var existingDetail = db.Order_Details.SingleOrDefault(od => od.OrderID == updatedDetail.OrderID && od.ProductID == updatedDetail.ProductID);
+            if (existingDetail != null)
+            {
+                existingDetail.UnitPrice = updatedDetail.UnitPrice;
+                existingDetail.Quantity = updatedDetail.Quantity;
+                existingDetail.Discount = updatedDetail.Discount;
+
+                db.SubmitChanges();
+            }
+        }
+
 
         public void ModificarOrden(int orderId, Orders ordenModificada)
         {
@@ -126,7 +209,24 @@ namespace CapaDatos
                 db.SubmitChanges();
             }
         }
+        public Orders GetOrderById(int orderId)
+        {
+            return db.Orders.SingleOrDefault(o => o.OrderID == orderId);
+        }
 
+        public List<Orders> GetAllOrders()
+        {
+            return db.Orders.ToList();
+        }
+        public List<Order_Details> GetOrderDetailsByOrderId(int orderId)
+        {
+            return db.Order_Details.Where(od => od.OrderID == orderId).ToList();
+        }
+        public void InsertOrder(Orders newOrder)
+        {
+            db.Orders.InsertOnSubmit(newOrder);
+            db.SubmitChanges();
+        }
         public Orders ObtenerOrdenPorId(int orderId)
         {
             return db.Orders.SingleOrDefault(o => o.OrderID == orderId);
@@ -136,5 +236,8 @@ namespace CapaDatos
         {
             return db.Order_Details.Where(od => od.OrderID == orderId).ToList();
         }
+
+       
     }
+
 }

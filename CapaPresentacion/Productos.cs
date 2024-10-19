@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,16 +28,23 @@ namespace CapaPresentacion
         {
             GetProductos();
         }
+       
 
+        // Este método es llamado cuando se quiere cargar los productos con sus categorías
         public void GetProductos()
         {
-            dataGridViewProductos.DataSource = negocioService.ObtenerProductosConCategorias();
-            //dataGridView1.DataSource = servicio.ObtenerClientesDeLondonBerlin();
-            //  dataGridView1.DataSource = servicio.ObtenerOrdenesConFreightMayorA100YEnviadas();
-            //  dataGridView1.DataSource = servicio.ObtenerProductosConStockYPrecioMayorA20();
-            // dataGridView1.DataSource = servicio.ObtenerOrdenesConClienteYEmpleado();
-            //dataGridView1.DataSource = servicio.ObtenerProductosDeProveedoresUSAyCanada();
-            //dataGridView1.DataSource = servicio.ObtenerClientesSinOrdenes();
+            try
+            {
+                dataGridViewProductos.DataSource = negocioService.ObtenerProductosConCategorias();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("No se pudo establecer una conexión con el servidor SQL. Por favor, verifique su configuración. Detalle del error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message);
+            }
         }
 
 
