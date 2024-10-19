@@ -20,15 +20,25 @@ namespace CapaPresentacion
         public Productos()
         {
             InitializeComponent();
-
+            CargarComboBoxConsultas();
             negocioService = new NegocioService();
         }
 
         private void Productos_Load(object sender, EventArgs e)
         {
-            GetProductos();
+          
         }
-       
+        private void CargarComboBoxConsultas()
+        {
+            comboBoxConsultas.Items.Add("Obtener Productos y Categorías");
+            comboBoxConsultas.Items.Add("Obtener Clientes de London o Berlin");
+            comboBoxConsultas.Items.Add("Obtener Órdenes con Freight > 100 y Enviadas");
+            comboBoxConsultas.Items.Add("Obtener Productos con Stock y Precio > 20");
+            comboBoxConsultas.Items.Add("Obtener Órdenes con Cliente y Empleado");
+            comboBoxConsultas.Items.Add("Obtener Productos de Proveedores USA y Canadá");
+            comboBoxConsultas.Items.Add("Obtener Clientes sin Órdenes");
+        }
+
 
         // Este método es llamado cuando se quiere cargar los productos con sus categorías
         public void GetProductos()
@@ -51,6 +61,41 @@ namespace CapaPresentacion
         private void dataGridViewProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void comboBoxConsultas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string seleccion = comboBoxConsultas.SelectedItem.ToString();
+            CargarDatosEnDataGridView(seleccion);
+        }
+        private void CargarDatosEnDataGridView(string seleccion)
+        {
+            switch (seleccion)
+            {
+                case "Obtener Productos y Categorías":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerProductosConCategorias();
+                    break;
+                case "Obtener Clientes de London o Berlin":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerClientesDeLondonBerlin();
+                    break;
+                case "Obtener Órdenes con Freight > 100 y Enviadas":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerOrdenesConFreightMayorA100YEnviadas();
+                    break;
+                case "Obtener Productos con Stock y Precio > 20":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerProductosConStockYPrecioMayorA20();
+                    break;
+                case "Obtener Órdenes con Cliente y Empleado":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerOrdenesConClienteYEmpleado();
+                    break;
+                case "Obtener Productos de Proveedores USA y Canadá":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerProductosDeProveedoresUSAyCanada();
+                    break;
+                case "Obtener Clientes sin Órdenes":
+                    dataGridViewProductos.DataSource = negocioService.ObtenerClientesSinOrdenes();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
