@@ -22,5 +22,17 @@ namespace CapaPresentacion
             Productos productos = new Productos();
             productos.ShowDialog();
         }
+
+        private void btnOrdersDetails_Click(object sender, EventArgs e)
+        {
+            OrdersDetails ordersDetails = new OrdersDetails();
+            ordersDetails.ShowDialog();
+        }
+
+        private void btnOrders_Click(object sender, EventArgs e)
+        {
+            Orders orders = new Orders();
+            orders.ShowDialog();
+        }
     }
 }

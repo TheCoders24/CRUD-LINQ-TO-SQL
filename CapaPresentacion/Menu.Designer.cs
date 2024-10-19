@@ -51,6 +51,7 @@
             this.btnOrders.TabIndex = 1;
             this.btnOrders.Text = "Orders";
             this.btnOrders.UseVisualStyleBackColor = true;
+            this.btnOrders.Click += new System.EventHandler(this.btnOrders_Click);
             // 
             // btnOrdersDetails
             // 
@@ -60,6 +61,7 @@
             this.btnOrdersDetails.TabIndex = 2;
             this.btnOrdersDetails.Text = "OrdersDetails";
             this.btnOrdersDetails.UseVisualStyleBackColor = true;
+            this.btnOrdersDetails.Click += new System.EventHandler(this.btnOrdersDetails_Click);
             // 
             // Menu
             // 
