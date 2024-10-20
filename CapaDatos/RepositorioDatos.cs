@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 
 namespace CapaDatos
@@ -158,11 +159,82 @@ namespace CapaDatos
             db.Order_Details.InsertAllOnSubmit(detalles);
             db.SubmitChanges();
         }
+        //public void InsertOrderDetail(Order_Details orderDetail)
+        //{
+        //    try
+        //    {
+        //        // Insertar el detalle del pedido
+        //        db.Order_Details.InsertOnSubmit(orderDetail);
+        //        db.SubmitChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Manejar excepciones específicas aquí si es necesario
+        //        throw new Exception("Error al insertar el detalle del pedido: " + ex.Message, ex);
+        //    }
+        //}
+
         public void InsertOrderDetail(Order_Details orderDetail)
         {
-            db.Order_Details.InsertOnSubmit(orderDetail);
-            db.SubmitChanges();
+            try
+            {
+                // Verificar si el OrderID existe en la tabla Orders
+                if (!OrderExists(orderDetail.OrderID))
+                {
+                    throw new InvalidOperationException($"El OrderID {orderDetail.OrderID} no existe en la tabla Orders.");
+                }
+
+                // Verificar si el detalle del pedido ya existe (opcional)
+                if (OrderDetailExists(orderDetail.OrderID, orderDetail.ProductID))
+                {
+                    throw new InvalidOperationException($"El detalle del pedido para OrderID {orderDetail.OrderID} y ProductID {orderDetail.ProductID} ya existe.");
+                }
+
+                // Insertar el detalle del pedido
+                db.Order_Details.InsertOnSubmit(orderDetail);
+                db.SubmitChanges();
+            }
+            catch (SqlException sqlEx)
+            {
+                // Manejar excepciones específicas de SQL
+                throw new Exception("Error en la base de datos al insertar el detalle del pedido: " + sqlEx.Message, sqlEx);
+            }
+            catch (InvalidOperationException ioex)
+            {
+                // Manejar excepciones de lógica de negocio
+                throw new Exception(ioex.Message, ioex);
+            }
+            catch (Exception ex)
+            {
+                // Manejar otras excepciones
+                throw new Exception("Error al insertar el detalle del pedido: " + ex.Message, ex);
+            }
         }
+
+        // Método para verificar si el OrderID existe en la tabla Orders
+        private bool OrderExists(int orderId)
+        {
+            return db.Orders.Any(o => o.OrderID == orderId);
+        }
+
+        // Método opcional para verificar si el detalle del pedido ya existe
+        private bool OrderDetailExists(int orderId, int productId)
+        {
+            return db.Order_Details.Any(od => od.OrderID == orderId && od.ProductID == productId);
+        }
+
+        // Método para obtener las órdenes
+        public List<Orders> ObtenerOrders()
+        {
+            return db.Orders.ToList(); // Asegúrate de que `Orders` es la tabla correcta
+        }
+
+        // Método para obtener los productos
+        public List<Products> ObtenerProducts()
+        {
+            return db.Products.ToList(); // Asegúrate de que `Products` es la tabla correcta
+        }
+
         public void UpdateOrder(Orders updatedOrder)
         {
             var existingOrder = db.Orders.SingleOrDefault(o => o.OrderID == updatedOrder.OrderID);

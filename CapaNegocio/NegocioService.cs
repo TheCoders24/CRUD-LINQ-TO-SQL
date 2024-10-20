@@ -1,5 +1,8 @@
 ﻿using CapaDatos;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace CapaNegocio
 {
@@ -86,6 +89,8 @@ namespace CapaNegocio
                 repositorio.InsertOrderDetail(detail);
             }
         }
+        
+
         public void ModificarPedido(Orders updatedOrder)
         {
             repositorio.UpdateOrder(updatedOrder);
@@ -108,8 +113,46 @@ namespace CapaNegocio
         }
         public void InsertarDetallePedido(Order_Details detail)
         {
-            repositorio.InsertOrderDetail(detail);
+            //try
+            //{
+            //    // Intentar insertar el detalle del pedido a través del repositorio
+            //    repositorio.InsertOrderDetail(detail);
+            //}
+            //catch (InvalidOperationException ioex)
+            //{
+            //    // Si la excepción indica que el OrderID no existe
+            //    MessageBox.Show(ioex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Capturar cualquier otro error que ocurra durante la inserción
+            //    MessageBox.Show("Error al insertar el detalle del pedido: " + ex.Message);
+            //}
+            try
+            {
+                // Intentar insertar el detalle del pedido a través del repositorio
+                repositorio.InsertOrderDetail(detail);
+                MessageBox.Show("El detalle del pedido se ha insertado correctamente.");
+            }
+            catch (InvalidOperationException ioex)
+            {
+                // Si la excepción indica que el OrderID no existe
+                MessageBox.Show($"Error: {ioex.Message}\nPor favor, verifique que el OrderID exista.");
+            }
+            catch (SqlException sqlEx)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error en la base de datos: {sqlEx.Message}\nPor favor, intente nuevamente.");
+               
+            }
+            catch (Exception ex)
+            {
+                // Capturar cualquier otro error que ocurra durante la inserción
+                MessageBox.Show("Error al insertar el detalle del pedido: " + ex.Message);
+                
+            }
         }
+
 
     }
 }
