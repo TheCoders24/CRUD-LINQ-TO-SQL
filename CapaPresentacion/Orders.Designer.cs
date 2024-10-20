@@ -31,6 +31,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.comboBoxOrdersID = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.txtShipCountry = new System.Windows.Forms.TextBox();
             this.txtShipPostalCode = new System.Windows.Forms.TextBox();
             this.txtShipRegion = new System.Windows.Forms.TextBox();
@@ -59,10 +61,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.comboBoxOrdersID = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -77,6 +80,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -125,6 +129,23 @@
             this.tabPage2.Text = "Agregar";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // comboBoxOrdersID
+            // 
+            this.comboBoxOrdersID.FormattingEnabled = true;
+            this.comboBoxOrdersID.Location = new System.Drawing.Point(20, 25);
+            this.comboBoxOrdersID.Name = "comboBoxOrdersID";
+            this.comboBoxOrdersID.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxOrdersID.TabIndex = 49;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(17, 8);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 48;
+            this.label14.Text = "OrdersID";
             // 
             // txtShipCountry
             // 
@@ -357,22 +378,13 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // comboBoxOrdersID
+            // dataGridView1
             // 
-            this.comboBoxOrdersID.FormattingEnabled = true;
-            this.comboBoxOrdersID.Location = new System.Drawing.Point(20, 25);
-            this.comboBoxOrdersID.Name = "comboBoxOrdersID";
-            this.comboBoxOrdersID.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxOrdersID.TabIndex = 49;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(17, 8);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 13);
-            this.label14.TabIndex = 48;
-            this.label14.Text = "OrdersID";
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(4, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(767, 387);
+            this.dataGridView1.TabIndex = 0;
             // 
             // Orders
             // 
@@ -384,8 +396,10 @@
             this.Text = "Orders";
             this.Load += new System.EventHandler(this.Orders_Load);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -425,5 +439,6 @@
         private System.Windows.Forms.TextBox txtFreight;
         private System.Windows.Forms.ComboBox comboBoxOrdersID;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

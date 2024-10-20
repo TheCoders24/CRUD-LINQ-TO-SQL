@@ -20,8 +20,31 @@ namespace CapaPresentacion
         {
             InitializeComponent();
             repositorio = new NegocioService();
-            
+            CargarDatos();
         }
+        private async void CargarDatos()
+        {
+            using (SqlConnection connection = new SqlConnection(Conexiones.CN))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP (1000) [OrderID], [CustomerID], [EmployeeID], [OrderDate], [RequiredDate], [ShippedDate], [ShipVia], [Freight], [ShipName], [ShipAddress], [ShipCity], [ShipRegion], [ShipPostalCode], [ShipCountry] FROM [Northwind].[dbo].[Orders]";
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    // Asignar el DataTable como origen de datos del DataGridView
+                    dataGridView1.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar los datos: " + ex.Message);
+                }
+            }
+        }
+
         private void tabPage2_Click(object sender, EventArgs e)
         {
 

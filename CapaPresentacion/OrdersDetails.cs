@@ -26,7 +26,6 @@ namespace CapaPresentacion
             CargarDatos();
         }
 
-
         private async void CargarDatos()
         {
             using (SqlConnection connection = new SqlConnection(Conexiones.CN))
@@ -48,7 +47,6 @@ namespace CapaPresentacion
                 }
             }
         }
-
 
         // Método para insertar el detalle de pedido
         public void InsertarDetallePedido(Order_Details detail)
@@ -171,6 +169,11 @@ namespace CapaPresentacion
         }
 
         private void OrdersDetails_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
