@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CapaNegocio
@@ -62,7 +64,7 @@ namespace CapaNegocio
         {
             repositorio.AgregarOrden(order, detalles);
         }
-
+        
         // Modificar una orden existente
         public void ModificarOrden(int orderId, Orders ordenModificada)
         {
@@ -74,7 +76,11 @@ namespace CapaNegocio
         {
             return repositorio.ObtenerOrdenPorId(orderId);
         }
-
+        // Método para obtener las órdenes
+        public List<OrdenClienteEmpleado> ObtenerOrdenes()
+        {
+            return repositorio.ObtenerOrdenes(); // Llamada al método de repositorio que acabas de crear
+        }
         // Obtener detalles de una orden por su ID
         public List<Order_Details> ObtenerDetallesPorIdOrden(int orderId)
         {
@@ -150,6 +156,23 @@ namespace CapaNegocio
                 MessageBox.Show("Error al insertar el detalle del pedido: " + ex.Message);
                 
             }
+        }
+        public List<Customers> ObtenerClientes()
+        {
+            // Llama al método sincrónico
+            return repositorio.ObtenerCustomers();
+        }
+
+        public List<Employees> ObtenerEmpleados()
+        {
+            // Llama al método sincrónico
+            return repositorio.ObtenerEmployees();
+        }
+
+        public List<Shippers> ObtenerMetodosDeEnvio()
+        {
+            // Llama al método sincrónico
+            return repositorio.ObtenerShipMethods();
         }
 
 

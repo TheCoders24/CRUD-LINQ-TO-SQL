@@ -169,5 +169,10 @@ namespace CapaPresentacion
                 MessageBox.Show("Error al modificar el detalle del pedido: " + ex.Message);
             }
         }
+
+        private void OrdersDetails_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

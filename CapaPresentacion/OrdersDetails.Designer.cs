@@ -30,7 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.comboBoxproductid = new System.Windows.Forms.ComboBox();
+            this.comboBoxorderid = new System.Windows.Forms.ComboBox();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,13 +44,10 @@
             this.txtUnitPrice = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxorderid = new System.Windows.Forms.ComboBox();
-            this.comboBoxproductid = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -71,6 +71,14 @@
             this.tabPage1.Text = "Consultar";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(765, 388);
+            this.dataGridView1.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.comboBoxproductid);
@@ -92,6 +100,22 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Agregar";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxproductid
+            // 
+            this.comboBoxproductid.FormattingEnabled = true;
+            this.comboBoxproductid.Location = new System.Drawing.Point(23, 101);
+            this.comboBoxproductid.Name = "comboBoxproductid";
+            this.comboBoxproductid.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxproductid.TabIndex = 23;
+            // 
+            // comboBoxorderid
+            // 
+            this.comboBoxorderid.FormattingEnabled = true;
+            this.comboBoxorderid.Location = new System.Drawing.Point(23, 37);
+            this.comboBoxorderid.Name = "comboBoxorderid";
+            this.comboBoxorderid.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxorderid.TabIndex = 22;
             // 
             // btnModificar
             // 
@@ -179,30 +203,6 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "OrderID:";
             // 
-            // comboBoxorderid
-            // 
-            this.comboBoxorderid.FormattingEnabled = true;
-            this.comboBoxorderid.Location = new System.Drawing.Point(23, 37);
-            this.comboBoxorderid.Name = "comboBoxorderid";
-            this.comboBoxorderid.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxorderid.TabIndex = 22;
-            // 
-            // comboBoxproductid
-            // 
-            this.comboBoxproductid.FormattingEnabled = true;
-            this.comboBoxproductid.Location = new System.Drawing.Point(23, 101);
-            this.comboBoxproductid.Name = "comboBoxproductid";
-            this.comboBoxproductid.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxproductid.TabIndex = 23;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(765, 388);
-            this.dataGridView1.TabIndex = 0;
-            // 
             // OrdersDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,11 +211,12 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "OrdersDetails";
             this.Text = "OrdersDetails";
+            this.Load += new System.EventHandler(this.OrdersDetails_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }

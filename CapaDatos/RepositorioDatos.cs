@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 
 namespace CapaDatos
@@ -14,6 +11,21 @@ namespace CapaDatos
     {
         public string ProductName { get; set; }
         public string CategoryName { get; set; }
+    }
+    public class Customer
+    {
+        public string CustomerID { get; set; }
+        public string CustomerName { get; set; }
+    }
+    public class Employee
+    {
+        public int EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+    }
+    public class ShippingMethod
+    {
+        public int ShipVia { get; set; } // Esto debería ser el tipo de datos adecuado
+        public string ShipperName { get; set; }
     }
 
     public class OrdenClienteEmpleado
@@ -66,7 +78,6 @@ namespace CapaDatos
             }
 
         }
-
 
         // Obtener los productos y sus categorías
         public List<ProductoCategoria> ObtenerProductosCategoria()
@@ -216,6 +227,7 @@ namespace CapaDatos
             return db.Orders.ToList(); // Asegúrate de que `Orders` es la tabla correcta
         }
 
+       
         // Método para obtener los productos
         public List<Products> ObtenerProducts()
         {
@@ -301,6 +313,77 @@ namespace CapaDatos
         {
             return db.Order_Details.Where(od => od.OrderID == orderId).ToList();
         }
+
+
+        public List<OrdenClienteEmpleado> ObtenerOrdenes()
+        {
+            using (var contexto = new NorthwindDataContextDataContext()) // Cambia por tu contexto
+            {
+                // Consulta que une las tablas Orders, Customers y Employees
+                var ordenes = (from o in contexto.Orders
+                               join c in contexto.Customers on o.CustomerID equals c.CustomerID
+                               join e in contexto.Employees on o.EmployeeID equals e.EmployeeID
+                               select new OrdenClienteEmpleado
+                               {
+                                   OrderID = o.OrderID,
+                                   CustomerName = c.CompanyName, // Usamos el nombre del cliente
+                                   EmployeeName = e.FirstName + " " + e.LastName // Nombre completo del empleado
+                               }).ToList();
+
+                return ordenes;
+            }
+        }
+
+
+        public List<Customers> ObtenerCustomers()
+        {
+            using (var contexto = new NorthwindDataContextDataContext())
+            {
+                var customers = contexto.Customers.ToList(); // Esto es sincrónico
+
+                if (!customers.Any())
+                {
+                    throw new Exception("No se encontraron clientes en la base de datos.");
+                }
+
+                return customers;
+            }
+        }
+
+        public List<Employees> ObtenerEmployees()
+        {
+            using (var contexto = new NorthwindDataContextDataContext())
+            {
+                // Obtener la lista de empleados de forma sincrónica
+                var employees = contexto.Employees.ToList(); // Esto es sincrónico
+
+                // Verificar si la tabla Employees contiene datos
+                if (!employees.Any())
+                {
+                    throw new Exception("No se encontraron empleados en la base de datos.");
+                }
+
+                return employees; // Asegúrate de que `Employees` es la tabla correcta
+            }
+        }
+
+        public List<Shippers> ObtenerShipMethods()
+        {
+            using (var contexto = new NorthwindDataContextDataContext())
+            {
+                // Obtener la lista de métodos de envío de forma sincrónica
+                var shippers = contexto.Shippers.ToList(); // Esto es sincrónico
+
+                // Verificar si la tabla Shippers contiene datos
+                if (!shippers.Any())
+                {
+                    throw new Exception("No se encontraron métodos de envío en la base de datos.");
+                }
+
+                return shippers; // Asegúrate de que `Shippers` es la tabla correcta
+            }
+        }
+
 
     }
 }
