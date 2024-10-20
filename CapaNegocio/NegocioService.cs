@@ -90,15 +90,28 @@ namespace CapaNegocio
             }
         }
         
-
         public void ModificarPedido(Orders updatedOrder)
         {
             repositorio.UpdateOrder(updatedOrder);
         }
+
         public void ModificarDetallePedido(Order_Details updatedDetail)
         {
-            repositorio.UpdateOrderDetail(updatedDetail);
+            try
+            {
+                repositorio.UpdateOrderDetail(updatedDetail);
+                MessageBox.Show("Detalle del pedido actualizado exitosamente.");
+            }
+            catch (InvalidOperationException ioex)
+            {
+                MessageBox.Show(ioex.Message); // Muestra el mensaje de error específico
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al modificar el detalle del pedido: " + ex.Message); // Maneja otros errores
+            }
         }
+
         public Orders ConsultarPedido(int orderId)
         {
             return repositorio.GetOrderById(orderId);
@@ -113,21 +126,7 @@ namespace CapaNegocio
         }
         public void InsertarDetallePedido(Order_Details detail)
         {
-            //try
-            //{
-            //    // Intentar insertar el detalle del pedido a través del repositorio
-            //    repositorio.InsertOrderDetail(detail);
-            //}
-            //catch (InvalidOperationException ioex)
-            //{
-            //    // Si la excepción indica que el OrderID no existe
-            //    MessageBox.Show(ioex.Message);
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Capturar cualquier otro error que ocurra durante la inserción
-            //    MessageBox.Show("Error al insertar el detalle del pedido: " + ex.Message);
-            //}
+            
             try
             {
                 // Intentar insertar el detalle del pedido a través del repositorio

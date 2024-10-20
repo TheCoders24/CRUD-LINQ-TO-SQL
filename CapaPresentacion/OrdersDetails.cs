@@ -23,7 +23,32 @@ namespace CapaPresentacion
             InitializeComponent();
             repositorio = new RepositorioDatos(); // inicializamos el repositorio o la clase de la CapaNegocio
             CargarComboBoxes();
+            CargarDatos();
         }
+
+
+        private async void CargarDatos()
+        {
+            using (SqlConnection connection = new SqlConnection(Conexiones.CN))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP (1000) [OrderID], [ProductID], [UnitPrice], [Quantity], [Discount] FROM [Northwind].[dbo].[Order Details]";
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    // Asignar el DataTable como origen de datos del DataGridView
+                    dataGridView1.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar los datos: " + ex.Message);
+                }
+            }
+        }
+
 
         // Método para insertar el detalle de pedido
         public void InsertarDetallePedido(Order_Details detail)
@@ -103,6 +128,45 @@ namespace CapaPresentacion
             catch (Exception ex)
             {
                 MessageBox.Show("Error al procesar la solicitud: " + ex.Message);
+            }
+        }
+        public void ModificarDetallePedido(Order_Details updatedDetail)
+        {
+            repositorio.UpdateOrderDetail(updatedDetail);
+        }
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Asegúrate de que los campos de texto contienen valores válidos
+                int orderId = int.Parse(comboBoxorderid.Text);   // Obtener OrderID desde el campo de texto
+                int productId = int.Parse(comboBoxproductid.Text); // Obtener ProductID desde el campo de texto
+
+                // Crear un objeto Order_Details con los datos a modificar
+                Order_Details updatedDetails = new Order_Details
+                {
+                    OrderID = orderId,
+                    ProductID = productId,
+                    UnitPrice = decimal.Parse(txtUnitPrice.Text), // Obtener precio unitario
+                    Quantity = short.Parse(txtQuantity.Text), // Obtener cantidad
+                    Discount = float.Parse(txtdiscount.Text) / 100 // Obtener descuento (convertir a decimal)
+                };
+
+                // Llamar al método para modificar el detalle del pedido
+                ModificarDetallePedido(updatedDetails);
+
+                // Informar al usuario que la modificación fue exitosa
+                MessageBox.Show("Detalle del pedido modificado exitosamente.");
+            }
+            catch (FormatException fe)
+            {
+                // Manejar errores de formato (por ejemplo, entradas no numéricas)
+                MessageBox.Show("Error de formato: " + fe.Message);
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier otro error
+                MessageBox.Show("Error al modificar el detalle del pedido: " + ex.Message);
             }
         }
     }

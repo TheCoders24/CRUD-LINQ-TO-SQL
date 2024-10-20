@@ -159,20 +159,7 @@ namespace CapaDatos
             db.Order_Details.InsertAllOnSubmit(detalles);
             db.SubmitChanges();
         }
-        //public void InsertOrderDetail(Order_Details orderDetail)
-        //{
-        //    try
-        //    {
-        //        // Insertar el detalle del pedido
-        //        db.Order_Details.InsertOnSubmit(orderDetail);
-        //        db.SubmitChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Manejar excepciones específicas aquí si es necesario
-        //        throw new Exception("Error al insertar el detalle del pedido: " + ex.Message, ex);
-        //    }
-        //}
+       
 
         public void InsertOrderDetail(Order_Details orderDetail)
         {
@@ -259,13 +246,19 @@ namespace CapaDatos
         public void UpdateOrderDetail(Order_Details updatedDetail)
         {
             var existingDetail = db.Order_Details.SingleOrDefault(od => od.OrderID == updatedDetail.OrderID && od.ProductID == updatedDetail.ProductID);
+
             if (existingDetail != null)
             {
-                existingDetail.UnitPrice = updatedDetail.UnitPrice;
+                // Actualiza las propiedades del detalle del pedido
                 existingDetail.Quantity = updatedDetail.Quantity;
+                existingDetail.UnitPrice = updatedDetail.UnitPrice;
                 existingDetail.Discount = updatedDetail.Discount;
 
-                db.SubmitChanges();
+                db.SubmitChanges(); // Guarda los cambios en la base de datos
+            }
+            else
+            {
+                throw new InvalidOperationException($"No se encontró el detalle del pedido con OrderID: {updatedDetail.OrderID} y ProductID: {updatedDetail.ProductID}");
             }
         }
 
@@ -309,7 +302,5 @@ namespace CapaDatos
             return db.Order_Details.Where(od => od.OrderID == orderId).ToList();
         }
 
-       
     }
-
 }
