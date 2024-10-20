@@ -21,5 +21,10 @@ namespace CapaPresentacion
         {
 
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
