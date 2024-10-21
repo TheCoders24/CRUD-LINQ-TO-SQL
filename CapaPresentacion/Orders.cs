@@ -165,9 +165,7 @@ namespace CapaPresentacion
                 }
                 else
                 {
-                    //// Insertar nueva orden
-                    //repositorio.AgregarOrden(nuevaOrden, detallesOrden); // Inserción con la lista de detalles de la orden
-                    //MessageBox.Show("Orden agregada exitosamente.");
+                  
 
                     //// Actualizar la orden existente
                     //nuevaOrden.OrderID = existingOrderId;
@@ -285,20 +283,42 @@ namespace CapaPresentacion
 
             try
             {
-                // Obtener el OrderID desde un control como TextBox o ComboBox
-                var orderId = int.Parse(comboBoxOrdersID.Text); // Asume que el ID es un entero
-
-                // Verificar si la orden existe
-                var ordenExistente = repositorio.ObtenerOrdenPorId(orderId); // Asegúrate de tener este método
-                if (ordenExistente == null)
+                // Validar que los campos de la orden no estén vacíos
+                if (string.IsNullOrWhiteSpace(comboBoxCustomerid.Text) ||
+                    string.IsNullOrWhiteSpace(comboBoxemployeeid.Text) ||
+                    string.IsNullOrWhiteSpace(txtFreight.Text) ||
+                    string.IsNullOrWhiteSpace(txtShipName.Text))
                 {
-                    MessageBox.Show("La orden no existe.");
+                    MessageBox.Show("Todos los campos de la orden son obligatorios.");
                     return;
                 }
 
-                var customerId = comboBoxCustomerid.Text;
+                // Validar que los campos de los detalles del pedido no estén vacíos
+                if (string.IsNullOrWhiteSpace(comboBoxproductid.Text) ||
+                    string.IsNullOrWhiteSpace(txtUnitPrice.Text) ||
+                    string.IsNullOrWhiteSpace(txtQuantity.Text) ||
+                    string.IsNullOrWhiteSpace(txtdiscount.Text))
+                {
+                    MessageBox.Show("Todos los campos de los detalles del pedido son obligatorios.");
+                    return;
+                }
+
+                // Intentar convertir los campos a los tipos correspondientes
+                if (!int.TryParse(comboBoxOrdersID.Text, out int orderId) ||
+                    !int.TryParse(comboBoxproductid.Text, out int productId) ||
+                    !decimal.TryParse(txtUnitPrice.Text, out decimal unitPrice) ||
+                    !short.TryParse(txtQuantity.Text, out short quantity) ||
+                    !float.TryParse(txtdiscount.Text, out float discount))
+                {
+                    MessageBox.Show("Uno o más valores tienen un formato incorrecto.");
+                    return;
+                }
+
+                // Procesar el descuento como porcentaje
+                discount /= 100;
 
                 // Verificar si el cliente existe
+                var customerId = comboBoxCustomerid.Text;
                 var customerExists = VerificarClienteExistente(customerId);
                 if (!customerExists)
                 {
@@ -307,15 +327,14 @@ namespace CapaPresentacion
                 }
 
                 // Crear una nueva instancia de Orders
-                var ordenActualizada = new CapaDatos.Orders
+                var nuevaOrden = new CapaDatos.Orders
                 {
-                    OrderID = orderId, // Incluye el OrderID
                     CustomerID = customerId,
                     EmployeeID = string.IsNullOrWhiteSpace(comboBoxemployeeid.Text) ? (int?)null : int.Parse(comboBoxemployeeid.Text),
                     OrderDate = dateTimePickerordersdate.Value,
                     RequiredDate = dateTimePickerRequiredDate.Value,
                     ShippedDate = dateTimePickerShippedDate.Value,
-                    ShipVia = comboBoxshipvia.SelectedItem != null ? (int)comboBoxshipvia.SelectedItem : (int?)null,
+                    ShipVia = comboBoxshipvia.SelectedItem != null && int.TryParse(comboBoxshipvia.SelectedItem.ToString(), out var shipVia) ? shipVia : (int?)null,
                     Freight = decimal.TryParse(txtFreight.Text, out var freightValue) ? freightValue : throw new FormatException("Freight debe ser un número válido."),
                     ShipName = txtShipName.Text,
                     ShipAddress = txtShipAddress.Text,
@@ -325,10 +344,29 @@ namespace CapaPresentacion
                     ShipCountry = txtShipCountry.Text
                 };
 
-                // Llamar al método para modificar la orden
-                repositorio.ModificarOrden(orderId, ordenActualizada); // Asegúrate de pasar el OrderID y el objeto
+                // Crear el objeto Order_Details
+                var detallesOrden = new List<Order_Details>
+                {
+                    new Order_Details
+                    {
+                        OrderID = orderId,
+                        ProductID = productId,
+                        UnitPrice = unitPrice,
+                        Quantity = quantity,
+                        Discount = discount
+                    }
+                };
 
-                MessageBox.Show("Orden actualizada exitosamente.");
+                // Verificar si se va a actualizar o agregar una nueva orden
+                if (!string.IsNullOrWhiteSpace(comboBoxOrdersID.Text) && int.TryParse(comboBoxOrdersID.Text, out var existingOrderId))
+                {
+                    // Actualizar la orden existente
+                    nuevaOrden.OrderID = existingOrderId;
+                    repositorio.ModificarPedido(nuevaOrden); // Actualización con la lista de detalles de la orden
+                    MessageBox.Show("Orden actualizada exitosamente.");
+                }
+               
+                MessageBox.Show("Detalle del Pedido insertado exitosamente.");
             }
             catch (FormatException fe)
             {
@@ -336,7 +374,7 @@ namespace CapaPresentacion
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar la orden: " + ex.Message);
+                MessageBox.Show("Error al procesar la solicitud: " + ex.Message);
             }
 
         }
