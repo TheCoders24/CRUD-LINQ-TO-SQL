@@ -16,6 +16,7 @@ namespace CapaPresentacion
     public partial class Orders : Form
     {
         private NegocioService repositorio;
+        private NorthwindDataContextDataContext NorthwindDataContextDataContext;
         public Orders()
         {
             InitializeComponent();
@@ -184,8 +185,6 @@ namespace CapaPresentacion
             {
                 MessageBox.Show("Error al procesar la solicitud: " + ex.Message);
             }
-
-
         }
         public bool VerificarClienteExistente(string customerId)
         {
