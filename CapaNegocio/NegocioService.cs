@@ -175,6 +175,5 @@ namespace CapaNegocio
             return repositorio.ObtenerShipMethods();
         }
 
-
     }
 }

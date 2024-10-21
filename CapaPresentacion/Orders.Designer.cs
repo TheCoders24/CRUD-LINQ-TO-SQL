@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.comboBoxOrdersID = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -61,11 +62,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.comboBoxproductid = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtdiscount = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtUnitPrice = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -89,8 +97,24 @@
             this.tabPage1.Text = "Consultar";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(4, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(767, 387);
+            this.dataGridView1.TabIndex = 0;
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.comboBoxproductid);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.txtdiscount);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.txtQuantity);
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.txtUnitPrice);
+            this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.comboBoxOrdersID);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.txtShipCountry);
@@ -149,49 +173,49 @@
             // 
             // txtShipCountry
             // 
-            this.txtShipCountry.Location = new System.Drawing.Point(301, 294);
+            this.txtShipCountry.Location = new System.Drawing.Point(506, 286);
             this.txtShipCountry.Name = "txtShipCountry";
             this.txtShipCountry.Size = new System.Drawing.Size(100, 20);
             this.txtShipCountry.TabIndex = 47;
             // 
             // txtShipPostalCode
             // 
-            this.txtShipPostalCode.Location = new System.Drawing.Point(301, 252);
+            this.txtShipPostalCode.Location = new System.Drawing.Point(506, 244);
             this.txtShipPostalCode.Name = "txtShipPostalCode";
             this.txtShipPostalCode.Size = new System.Drawing.Size(100, 20);
             this.txtShipPostalCode.TabIndex = 46;
             // 
             // txtShipRegion
             // 
-            this.txtShipRegion.Location = new System.Drawing.Point(301, 204);
+            this.txtShipRegion.Location = new System.Drawing.Point(506, 196);
             this.txtShipRegion.Name = "txtShipRegion";
             this.txtShipRegion.Size = new System.Drawing.Size(100, 20);
             this.txtShipRegion.TabIndex = 45;
             // 
             // txtShipCity
             // 
-            this.txtShipCity.Location = new System.Drawing.Point(301, 164);
+            this.txtShipCity.Location = new System.Drawing.Point(506, 156);
             this.txtShipCity.Name = "txtShipCity";
             this.txtShipCity.Size = new System.Drawing.Size(100, 20);
             this.txtShipCity.TabIndex = 44;
             // 
             // txtShipAddress
             // 
-            this.txtShipAddress.Location = new System.Drawing.Point(301, 115);
+            this.txtShipAddress.Location = new System.Drawing.Point(506, 107);
             this.txtShipAddress.Name = "txtShipAddress";
             this.txtShipAddress.Size = new System.Drawing.Size(100, 20);
             this.txtShipAddress.TabIndex = 43;
             // 
             // txtShipName
             // 
-            this.txtShipName.Location = new System.Drawing.Point(301, 77);
+            this.txtShipName.Location = new System.Drawing.Point(506, 69);
             this.txtShipName.Name = "txtShipName";
             this.txtShipName.Size = new System.Drawing.Size(100, 20);
             this.txtShipName.TabIndex = 42;
             // 
             // txtFreight
             // 
-            this.txtFreight.Location = new System.Drawing.Point(301, 34);
+            this.txtFreight.Location = new System.Drawing.Point(506, 26);
             this.txtFreight.Name = "txtFreight";
             this.txtFreight.Size = new System.Drawing.Size(100, 20);
             this.txtFreight.TabIndex = 41;
@@ -199,7 +223,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(296, 277);
+            this.label13.Location = new System.Drawing.Point(501, 269);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(64, 13);
             this.label13.TabIndex = 40;
@@ -208,7 +232,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(294, 235);
+            this.label12.Location = new System.Drawing.Point(499, 227);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(82, 13);
             this.label12.TabIndex = 39;
@@ -217,7 +241,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(298, 187);
+            this.label11.Location = new System.Drawing.Point(503, 179);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 13);
             this.label11.TabIndex = 38;
@@ -226,7 +250,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(294, 144);
+            this.label10.Location = new System.Drawing.Point(499, 136);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(45, 13);
             this.label10.TabIndex = 37;
@@ -235,7 +259,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(294, 100);
+            this.label9.Location = new System.Drawing.Point(499, 92);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(66, 13);
             this.label9.TabIndex = 36;
@@ -244,7 +268,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(294, 61);
+            this.label8.Location = new System.Drawing.Point(499, 53);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 35;
@@ -253,7 +277,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(294, 18);
+            this.label7.Location = new System.Drawing.Point(499, 10);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(39, 13);
             this.label7.TabIndex = 34;
@@ -378,13 +402,70 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // dataGridView1
+            // comboBoxproductid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 7);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(767, 387);
-            this.dataGridView1.TabIndex = 0;
+            this.comboBoxproductid.FormattingEnabled = true;
+            this.comboBoxproductid.Location = new System.Drawing.Point(279, 53);
+            this.comboBoxproductid.Name = "comboBoxproductid";
+            this.comboBoxproductid.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxproductid.TabIndex = 59;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(276, 196);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(49, 13);
+            this.label15.TabIndex = 57;
+            this.label15.Text = "Discount";
+            // 
+            // txtdiscount
+            // 
+            this.txtdiscount.Location = new System.Drawing.Point(279, 212);
+            this.txtdiscount.Name = "txtdiscount";
+            this.txtdiscount.Size = new System.Drawing.Size(100, 20);
+            this.txtdiscount.TabIndex = 56;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(276, 137);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(46, 13);
+            this.label16.TabIndex = 55;
+            this.label16.Text = "Quantity";
+            // 
+            // txtQuantity
+            // 
+            this.txtQuantity.Location = new System.Drawing.Point(279, 153);
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.Size = new System.Drawing.Size(100, 20);
+            this.txtQuantity.TabIndex = 54;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(276, 84);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(50, 13);
+            this.label17.TabIndex = 53;
+            this.label17.Text = "UnitPrice";
+            // 
+            // txtUnitPrice
+            // 
+            this.txtUnitPrice.Location = new System.Drawing.Point(279, 100);
+            this.txtUnitPrice.Name = "txtUnitPrice";
+            this.txtUnitPrice.Size = new System.Drawing.Size(100, 20);
+            this.txtUnitPrice.TabIndex = 52;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(276, 26);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(55, 13);
+            this.label18.TabIndex = 51;
+            this.label18.Text = "ProductID";
             // 
             // Orders
             // 
@@ -397,9 +478,9 @@
             this.Load += new System.EventHandler(this.Orders_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -440,5 +521,13 @@
         private System.Windows.Forms.ComboBox comboBoxOrdersID;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox comboBoxproductid;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtdiscount;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtQuantity;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtUnitPrice;
+        private System.Windows.Forms.Label label18;
     }
 }
