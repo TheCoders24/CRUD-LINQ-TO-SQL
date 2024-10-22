@@ -162,7 +162,9 @@ namespace CapaPresentacion
                 {
                     // Insertar nueva orden
                     repositorio.AgregarOrden(nuevaOrden, detallesOrden); // Inserción con la lista de detalles de la orden
+                    
                     MessageBox.Show("Orden agregada exitosamente.");
+                    CargarDatos();
                 }
                 else
                 {
@@ -364,6 +366,7 @@ namespace CapaPresentacion
                     nuevaOrden.OrderID = existingOrderId;
                     repositorio.ModificarPedido(nuevaOrden); // Actualización con la lista de detalles de la orden
                     MessageBox.Show("Orden actualizada exitosamente.");
+                    CargarDatos();
                 }
                
                 MessageBox.Show("Detalle del Pedido insertado exitosamente.");
