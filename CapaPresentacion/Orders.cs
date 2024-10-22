@@ -176,6 +176,7 @@ namespace CapaPresentacion
                 }
 
                 MessageBox.Show("Detalle del Pedido insertado exitosamente.");
+                CargarDatos();
             }
             catch (FormatException fe)
             {
@@ -366,6 +367,7 @@ namespace CapaPresentacion
                 }
                
                 MessageBox.Show("Detalle del Pedido insertado exitosamente.");
+                CargarDatos();
             }
             catch (FormatException fe)
             {
