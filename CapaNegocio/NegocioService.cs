@@ -174,6 +174,5 @@ namespace CapaNegocio
             // Llama al método sincrónico
             return repositorio.ObtenerShipMethods();
         }
-
     }
 }

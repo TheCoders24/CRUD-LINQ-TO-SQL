@@ -383,7 +383,5 @@ namespace CapaDatos
                 return shippers; // Asegúrate de que `Shippers` es la tabla correcta
             }
         }
-
-
     }
 }

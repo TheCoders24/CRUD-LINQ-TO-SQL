@@ -142,6 +142,7 @@ namespace CapaPresentacion
                     ShipRegion = txtShipRegion.Text,
                     ShipPostalCode = txtShipPostalCode.Text,
                     ShipCountry = txtShipCountry.Text
+                   
                 };
 
                 // Crear el objeto Order_Details
@@ -164,6 +165,7 @@ namespace CapaPresentacion
                     repositorio.AgregarOrden(nuevaOrden, detallesOrden); // Inserción con la lista de detalles de la orden
                     
                     MessageBox.Show("Orden agregada exitosamente.");
+                    
                     CargarDatos();
                 }
                 else
@@ -385,7 +387,11 @@ namespace CapaPresentacion
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
+        }
 
+        private void comboBoxOrdersID_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
