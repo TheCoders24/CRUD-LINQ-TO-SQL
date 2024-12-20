@@ -27,6 +27,7 @@ namespace CapaPresentacion
         {
             OrdersDetails ordersDetails = new OrdersDetails();
             ordersDetails.ShowDialog();
+
         }
 
         private void btnOrders_Click(object sender, EventArgs e)

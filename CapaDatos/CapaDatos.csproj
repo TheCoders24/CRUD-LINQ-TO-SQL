@@ -152,6 +152,9 @@
   <ItemGroup>
     <Compile Include="Conexiones.cs" />
     <Compile Include="DataService.cs" />
+    <Compile Include="NorthwindDataContext.cs">
+      <DependentUpon>NorthwindDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="RepositorioDatos.cs" />
     <Compile Include="NorthwindDataContext.designer.cs">
       <AutoGen>True</AutoGen>

@@ -32,12 +32,6 @@ namespace CapaPresentacion
                 // Crear una instancia del repositorio
                 var repositorio = new RepositorioDatos();
 
-                //// Cargar OrderID
-                //var orders = repositorio.ObtenerOrders();
-                //comboBoxOrdersID.DataSource = orders;
-                //comboBoxOrdersID.DisplayMember = "OrderID"; // Asegúrate de que "OrderID" es la propiedad que necesitas
-                //comboBoxOrdersID.ValueMember = "OrderID";   // El valor que se enviará al ComboBox
-
                 // Cargar ProductID
                 var products = repositorio.ObtenerProducts();
                 comboBoxproductid.DataSource = products;

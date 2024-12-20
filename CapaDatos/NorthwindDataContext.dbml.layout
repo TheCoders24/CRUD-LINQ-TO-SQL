@@ -87,35 +87,35 @@
         <classShapeMoniker Id="977fd694-3ddd-4652-b9a1-93d1b4762d52" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 7.31574375651042); (6.5 : 7.31574375651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 7.31574375651042); (6.5 : 7.31574375651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Customers/Customers_CustomerCustomerDemo" />
       <nodes>
         <classShapeMoniker Id="49814abc-890e-4a8b-91f8-26ac3095b6c8" />
         <classShapeMoniker Id="977fd694-3ddd-4652-b9a1-93d1b4762d52" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.125 : 18.625); (2.125 : 10.0112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.125 : 18.625); (2.125 : 10.0112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Region/Region_Territories" />
       <nodes>
         <classShapeMoniker Id="75f9a63e-2829-446a-a1b9-f68bfb674f0d" />
         <classShapeMoniker Id="7a4ae4e6-71fa-4903-a718-c7206847c45d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 11.1874995); (6.04166666666667 : 11.1874995 : JumpStart); (6.20833333333333 : 11.1874995 : JumpEnd); (7.5 : 11.1874995); (7.5 : 11.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 11.1874995); (6.04166666666667 : 11.1874995 : JumpStart); (6.20833333333333 : 11.1874995 : JumpEnd); (7.5 : 11.1874995); (7.5 : 11.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Categories/Categories_Products" />
       <nodes>
         <classShapeMoniker Id="548ceec4-c690-46d0-9e44-96bb36785380" />
         <classShapeMoniker Id="0348afdd-314c-43fa-8cd8-e9a89ab0a124" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 13.7412019856771); (6.04166666666667 : 13.7412019856771 : JumpStart); (6.20833333333333 : 13.7412019856771 : JumpEnd); (6.5 : 13.7412019856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 13.7412019856771); (6.04166666666667 : 13.7412019856771 : JumpStart); (6.20833333333333 : 13.7412019856771 : JumpEnd); (6.5 : 13.7412019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Suppliers/Suppliers_Products" />
       <nodes>
         <classShapeMoniker Id="69d21668-64a8-4aaf-8efb-03176f7d7fe5" />
         <classShapeMoniker Id="0348afdd-314c-43fa-8cd8-e9a89ab0a124" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.65625 : 5.875); (5.65625 : 3.03125); (6.5 : 3.03125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.65625 : 5.875); (5.65625 : 5.37824575651042); (6.5 : 5.37824575651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Customers/Customers_Orders" />
       <nodes>
         <classShapeMoniker Id="49814abc-890e-4a8b-91f8-26ac3095b6c8" />
@@ -143,21 +143,21 @@
         <classShapeMoniker Id="35b789e0-1aa8-4f2b-a0c5-73e3c1be7398" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 9.43674967447917); (3.59375 : 9.43674967447917); (3.59375 : 4.81899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 9.43674967447917); (3.59375 : 9.43674967447917); (3.59375 : 4.81899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Territories/Territories_EmployeeTerritories" />
       <nodes>
         <classShapeMoniker Id="7a4ae4e6-71fa-4903-a718-c7206847c45d" />
         <classShapeMoniker Id="ca9ee900-bcb4-40b8-80f9-81213e7b3c70" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.34699625651042); (3.51041666666667 : 5.34699625651042 : JumpStart); (3.67708333333333 : 5.34699625651042 : JumpEnd); (5.57291666666667 : 5.34699625651042 : JumpStart); (5.73958333333333 : 5.34699625651042 : JumpEnd); (6.5 : 5.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 3.03125); (6.5 : 3.03125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Employees/Employees_Orders" />
       <nodes>
         <classShapeMoniker Id="7f4c72ad-d12c-40b5-a5a0-c25d3aa91522" />
         <classShapeMoniker Id="6a3b65a5-102b-4f31-a872-c46bd9132bad" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.22199625651042); (3.5 : 4.22199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.22199625651042); (3.5 : 4.22199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindDataContextDataContext/Employees/Employees_EmployeeTerritories" />
       <nodes>
         <classShapeMoniker Id="7f4c72ad-d12c-40b5-a5a0-c25d3aa91522" />
